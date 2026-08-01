@@ -138,3 +138,95 @@ Cache-Control: max-age=3600
 * **Multipart & Streaming:**
   * বড় ফাইল আপলোডের জন্য **Multipart Form Data** (Boundary ভিত্তিক) ব্যবহার করা হয়।
   * বড় ডেটা বা রেসপন্সের জন্য **Chunked Transfer / Event Stream (`text/event-stream`)** ব্যবহার করা হয়।
+
+  
+
+---
+
+# 🚀 Backend Performance & Security Notes
+
+---
+
+## 1. Handling Large Requests and Responses
+
+যখন কোনো সিস্টেমে বিশাল আকারের ডাটা (যেমন: বড় ফাইল আপলোড/ডাউনলোড বা মেগা JSON পেলোড) প্রসেস করতে হয়, তখন মেমোরি ওভারফ্লো (RAM Crash) এড়াতে এবং সার্ভারকে দ্রুত রাখতে বিশেষ কৌশল ব্যবহার করতে হয়।
+
+### 🛠️ Best Practices:
+
+* **Streaming Data (স্ট্রিম ব্যবহার করা):**
+* পুরো ফাইল বা ডাটা একসাথে মেমোরিতে (RAM) লোড না করে ছোট ছোট টুকরো (Chunks) হিসেবে প্রসেস করতে হয়।
+* *Example (Node.js):* `fs.createReadStream()` বা `fs.createWriteStream()` ব্যবহার করা।
+
+
+* **Chunked Transfer Encoding:**
+* HTTP/1.1-এর এই ফিচারের মাধ্যমে সার্ভার ডাটার সাইজ আগে থেকে না জেনেও ছোট ছোট `Chunk`-এ ক্লায়েন্টের কাছে রেসপন্স পাঠাতে পারে।
+
+
+* **Pagination (পেজিনেশন):**
+* ডেটাবেজ থেকে একবারে ১ লাখ ডাটা না এনে `limit` এবং `offset` ব্যবহার করে ২০-৫০টি করে ডাটা রেসপন্ড করা।
+
+
+* **Data Compression (Gzip / Brotli):**
+* বৃহৎ JSON/Text রেসপন্স পাঠানোর আগে তা কমপ্রেস (Compress) করে পাঠালে নেটওয়ার্ক ব্যান্ডউইথ এবং ট্রান্সফার টাইম অনেক কমে যায়।
+
+
+* **Payload Size Limiting:**
+* সার্ভারে সিকিউরিটির জন্য সর্বোচ্চ রিকোয়েস্ট সাইজ ফিক্স করে দেওয়া (যেমন: Nginx-এ `client_max_body_size 10M;` বা Express-এ `express.json({ limit: '10mb' })`) যাতে DDoS অ্যাটাক প্রতিরোধ করা যায়।
+
+
+
+---
+
+## 2. SSL / TLS (Secure Sockets Layer / Transport Layer Security)
+
+SSL এবং এর আধুনিক রূপ **TLS** হলো ক্লায়েন্ট (যেমন: ব্রাউজার) এবং সার্ভারের মধ্যকার ডাটা এনক্রিপ্ট করার জন্য ব্যবহৃত সিকিউরিটি প্রোটোকল।
+
+```
+[Client]  <--- Encrypted Data (HTTPS) --->  [Server]
+
+```
+
+### 🔑 Key Concepts:
+
+* **SSL vs TLS:** SSL হলো পুরনো সংস্করণ (যা বর্তমানে অনিরাপদ/Deprecated)। বর্তমানে আমরা যা ব্যবহার করি তা আসলে **TLS** (যেমন: TLS 1.2, TLS 1.3), তবে কথ্য ভাষায় একে এখনো SSL বলা হয়।
+* **SSL/TLS Handshake:** ক্লায়েন্ট ও সার্ভার কানেকশন তৈরি করার সময় প্রথম কয়েক মিলি-সেকেন্ডে ডিজিটাল সার্টিফিকেট ভ্যালিডেশন এবং এনক্রিপশন কী (Encryption Keys) আদান-প্রদান করে।
+* **TLS 1.3 Advantage:** TLS 1.2-এ হ্যান্ডশেকের জন্য ২ রাউন্ড ট্রিপ (2-RTT) লাগতো, কিন্তু **TLS 1.3** এটি কমিয়ে **1-RTT** (বা 0-RTT) বানিয়ে দিয়েছে, যা কানেকশন স্পীড অনেক বাড়িয়ে দেয়।
+* **HTTPS:** HTTP + SSL/TLS = HTTPS (Port: 443)।
+
+---
+
+## 3. Keep-Alive (HTTP Persistent Connection)
+
+ডিফল্টভাবে পুরনো HTTP প্রোটোকলে প্রতিটি Request/Response-এর পর TCP কানেকশন বন্ধ হয়ে যেত। নতুন রিকোয়েস্টের জন্য আবার নতুন করে TCP Handshake এবং SSL Handshake করতে হতো, যা অত্যন্ত ধীরগতির।
+
+**Keep-Alive** সুবিধাটি একটি নির্দিষ্ট TCP কানেকশনকে খোলা রাখে, যাতে একই কানেকশন দিয়ে পরপর একাধিক রিকোয়েস্ট পাঠানো যায়।
+
+```
+Without Keep-Alive:
+[Req 1] -> [Handshake] -> [Data] -> [Close]
+[Req 2] -> [Handshake] -> [Data] -> [Close]  (Slow 🐢)
+
+With Keep-Alive:
+[Handshake Once] -> [Req 1 Data] -> [Req 2 Data] -> [Req 3 Data] -> [Close] (Fast ⚡)
+
+```
+
+### 🛠️ Configuration & Benefits:
+
+* **HTTP Header:** `Connection: keep-alive`
+* **Timeouts:** `Keep-Alive: timeout=5, max=100` (সার্ভার ৫ সেকেন্ড নিষ্ক্রিয় থাকলে বা ১০০টি রিকোয়েস্টের পর কানেকশন বন্ধ করবে)।
+* **Benefits:**
+1. **Latency কমায়:** বারবার TCP ও TLS Handshake করার সময় নষ্ট হয় না।
+2. **CPU Usage কমায়:** বারবার এনক্রিপশন কী তৈরি করতে হয় না বলে সার্ভার প্রসেসরের ওপর চাপ কমে।
+
+
+
+---
+
+### 💡 Summary Checklist for Architecture:
+
+| Feature | Key Focus | Real-World Application |
+| --- | --- | --- |
+| **Large Req/Res** | Memory Efficiency | File Upload/Download, Data Export, Streaming |
+| **SSL/TLS** | Data Security & Privacy | HTTPS, Encryption, Identity Verification |
+| **Keep-Alive** | Network Performance | API Gateways, Reusing TCP Connections |
