@@ -40,7 +40,14 @@
 
 ## 📄 ৪. HTTP Structure (মেসেজ স্ট্রাকচার)
 
+
 ### Request Message Body:
+GET /index.html HTTP/1.1
+Host: [www.example.com](https://www.example.com)
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64)
+Accept: text/html,application/xhtml+xml
+Accept-Language: en-US,en;q=0.9
+
 1. **Method & Path:** (যেমন: `GET /api/user`)
 2. **HTTP Version:** (যেমন: `HTTP/1.1`)
 3. **Headers:** Key-Value আকারে অতিরিক্ত তথ্য (যেমন: `Host`, `Authorization`).
@@ -48,6 +55,13 @@
 5. **Request Body:** ক্লায়েন্ট থেকে পাঠানো ডেটা (JSON/Form Data).
 
 ### Response Message Body:
+HTTP/1.1 200 OK
+Date: Sat, 01 Aug 2026 10:00:00 GMT
+Server: Apache/2.4.41 (Ubuntu)
+Content-Type: text/html; charset=UTF-8
+Content-Length: 1256
+Cache-Control: max-age=3600
+
 1. **Status Code & Message:** (যেমন: `200 OK`)
 2. **Response Headers:** (যেমন: `Content-Type`, `Cache-Control`)
 3. **Response Body:** সার্ভার থেকে পাঠানো ডেটা।
@@ -57,6 +71,7 @@
 ## 🏷️ ৫. HTTP Headers
 
 হেডার হলো পার্সেলের ওপর লেখা ঠিকানার মতো metadata।
+
 
 * **Request Headers:** `User-Agent`, `Authorization`, `Accept`.
 * **General Headers:** `Date`, `Cache-Control`, `Connection`.
