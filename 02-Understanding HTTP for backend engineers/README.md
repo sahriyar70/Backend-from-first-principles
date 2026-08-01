@@ -143,15 +143,16 @@ Cache-Control: max-age=3600
 
 ---
 
-# 🚀 Backend Performance & Security Notes
+#  Backend Performance & Security Notes
 
 ---
 
 ## 1. Handling Large Requests and Responses
 
-যখন কোনো সিস্টেমে বিশাল আকারের ডাটা (যেমন: বড় ফাইল আপলোড/ডাউনলোড বা মেগা JSON পেলোড) প্রসেস করতে হয়, তখন মেমোরি ওভারফ্লো (RAM Crash) এড়াতে এবং সার্ভারকে দ্রুত রাখতে বিশেষ কৌশল ব্যবহার করতে হয়।
+যখন কোনো সিস্টেমে বিশাল আকারের ডাটা (যেমন: বড় ফাইল আপলোড/ডাউনলোড বা মেগা JSON পেলোড) প্রসেস করতে হয়,
+ তখন মেমোরি ওভারফ্লো (RAM Crash) এড়াতে এবং সার্ভারকে দ্রুত রাখতে বিশেষ কৌশল ব্যবহার করতে হয়।
 
-### 🛠️ Best Practices:
+###  Best Practices:
 
 * **Streaming Data (স্ট্রিম ব্যবহার করা):**
 * পুরো ফাইল বা ডাটা একসাথে মেমোরিতে (RAM) লোড না করে ছোট ছোট টুকরো (Chunks) হিসেবে প্রসেস করতে হয়।
@@ -186,7 +187,7 @@ SSL এবং এর আধুনিক রূপ **TLS** হলো ক্লা
 
 ```
 
-### 🔑 Key Concepts:
+###  Key Concepts:
 
 * **SSL vs TLS:** SSL হলো পুরনো সংস্করণ (যা বর্তমানে অনিরাপদ/Deprecated)। বর্তমানে আমরা যা ব্যবহার করি তা আসলে **TLS** (যেমন: TLS 1.2, TLS 1.3), তবে কথ্য ভাষায় একে এখনো SSL বলা হয়।
 * **SSL/TLS Handshake:** ক্লায়েন্ট ও সার্ভার কানেকশন তৈরি করার সময় প্রথম কয়েক মিলি-সেকেন্ডে ডিজিটাল সার্টিফিকেট ভ্যালিডেশন এবং এনক্রিপশন কী (Encryption Keys) আদান-প্রদান করে।
@@ -204,14 +205,14 @@ SSL এবং এর আধুনিক রূপ **TLS** হলো ক্লা
 ```
 Without Keep-Alive:
 [Req 1] -> [Handshake] -> [Data] -> [Close]
-[Req 2] -> [Handshake] -> [Data] -> [Close]  (Slow 🐢)
+[Req 2] -> [Handshake] -> [Data] -> [Close]  (Slow )
 
 With Keep-Alive:
-[Handshake Once] -> [Req 1 Data] -> [Req 2 Data] -> [Req 3 Data] -> [Close] (Fast ⚡)
+[Handshake Once] -> [Req 1 Data] -> [Req 2 Data] -> [Req 3 Data] -> [Close] (Fast )
 
 ```
 
-### 🛠️ Configuration & Benefits:
+###  Configuration & Benefits:
 
 * **HTTP Header:** `Connection: keep-alive`
 * **Timeouts:** `Keep-Alive: timeout=5, max=100` (সার্ভার ৫ সেকেন্ড নিষ্ক্রিয় থাকলে বা ১০০টি রিকোয়েস্টের পর কানেকশন বন্ধ করবে)।
@@ -223,7 +224,7 @@ With Keep-Alive:
 
 ---
 
-### 💡 Summary Checklist for Architecture:
+### Summary Checklist for Architecture:
 
 | Feature | Key Focus | Real-World Application |
 | --- | --- | --- |
