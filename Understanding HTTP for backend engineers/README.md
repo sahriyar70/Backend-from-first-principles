@@ -1,10 +1,10 @@
-# 🌐 Understanding HTTP for Backend Engineers
+#  Understanding HTTP for Backend Engineers
 
 এই নোটে ব্যাকএন্ড ডেভেলপমেন্টের জন্য অত্যন্ত গুরুত্বপূর্ণ বিষয় **HTTP প্রোটোকল** এর মূল ধারণাগুলো সহজ ও বিস্তারিতভাবে সাজিয়ে উপস্থাপন করা হলো।
 
 ---
 
-## 📌 ১. HTTP এর মূল দুইটি ধারণা (Core Concepts)
+##  ১. HTTP এর মূল দুইটি ধারণা (Core Concepts)
 
 ### ১. Statelessness (স্টেটলেসনেস)
 * **সংজ্ঞা:** সার্ভার পূর্ববর্তী কোনো রিকোয়েস্ট বা ইন্টারেকশনের তথ্য মনে রাখে না।
@@ -21,7 +21,7 @@
 
 ---
 
-## ⚙️ ২. ট্রান্সপোর্ট লেয়ার ও OSI Model
+##  ২. ট্রান্সপোর্ট লেয়ার ও OSI Model
 
 * HTTP অ্যাপ্লিকেশন লেয়ারের (Layer 7) প্রোটোকল।
 * ডেটা আদান-প্রদানের নির্ভরযোগ্যতার জন্য HTTP নিচে **TCP (Transmission Control Protocol)** ব্যবহার করে (যা Three-way Handshake এর মাধ্যমে কানেকশন তৈরি করে)।
@@ -29,7 +29,7 @@
 
 ---
 
-## 🔄 ৩. HTTP এর সংস্করণসমূহ (Versions)
+## ৩. HTTP এর সংস্করণসমূহ (Versions)
 
 * **HTTP 1.0:** প্রতি রিকোয়েস্টের জন্য নতুন কানেকশন তৈরি হতো (ধীরগতি সম্পন্ন)।
 * **HTTP 1.1:** Persistent Connections (Keep-Alive) চালু হয়। একই কানেকশন দিয়ে একাধিক রিকোয়েস্ট সম্ভব হয়।
@@ -38,7 +38,7 @@
 
 ---
 
-## 📄 ৪. HTTP Structure (মেসেজ স্ট্রাকচার)
+##  ৪. HTTP Structure (মেসেজ স্ট্রাকচার)
 
 
 ### Request Message Body:
@@ -68,7 +68,7 @@ Cache-Control: max-age=3600
 
 ---
 
-## 🏷️ ৫. HTTP Headers
+##  ৫. HTTP Headers
 
 হেডার হলো পার্সেলের ওপর লেখা ঠিকানার মতো metadata।
 
@@ -80,7 +80,7 @@ Cache-Control: max-age=3600
 
 ---
 
-## 🛠️ ৬. HTTP Methods (মেথডসমূহ)
+## ৬. HTTP Methods (মেথডসমূহ)
 
 | Method | ব্যবহার | Idempotent? |
 | :--- | :--- | :---: |
@@ -95,7 +95,7 @@ Cache-Control: max-age=3600
 
 ---
 
-## 🚧 ৭. CORS (Cross-Origin Resource Sharing)
+## ৭. CORS (Cross-Origin Resource Sharing)
 
 ব্রাউজারের **Same-Origin Policy**-র কারণে এক ডোমেইন থেকে অন্য ডোমেইনে রিকোয়েস্ট পাঠালে ব্লকিং আটকানোর মেকানিজমই হলো CORS।
 
@@ -104,7 +104,7 @@ Cache-Control: max-age=3600
 
 ---
 
-## 🔢 ৮. HTTP Status Codes
+## ৮. HTTP Status Codes
 
 * **1xx (Informational):** `100 Continue`
 * **2xx (Success):**
@@ -130,7 +130,7 @@ Cache-Control: max-age=3600
 
 ---
 
-## ⚡ ৯. Caching & Optimization
+##  ৯. Caching & Optimization
 
 * **Caching Headers:** `Cache-Control: max-age=...`, `ETag`, `Last-Modified`.
 * **Conditional Requests:** `If-None-Match` বা `If-Modified-Since` পাঠিয়ে সার্ভারে ডেটা পরিবর্তন হয়েছে কিনা যাচাই করা হয় (পরিবর্তন না হলে `304 Not Modified` ফেরত আসে)।
