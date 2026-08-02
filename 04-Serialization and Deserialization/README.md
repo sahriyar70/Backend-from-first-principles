@@ -67,33 +67,9 @@ REST API কমিউনিকেশনের মূল ভিত্তি হ�
     "email": "john@example.com"
   }
 }
----
-# Serialization
-// একটি সাধারণ JavaScript Object (ইন-মেমোরি ডেটা)
-const userObject = {
-  id: 101,
-  name: "Rahim",
-  role: "admin"
-};
----
 
-# JSON Serialization & Deserialization in JavaScript
 
----
 
-## 1. Serialization (সিরিয়ালাইজেশন)
-
-**অবজেক্ট থেকে JSON String-এ রূপান্তর:**
-
-```javascript
-// একটি স্বাভাবিক JavaScript Object
-const userObject = { id: 101, name: "Rahim", role: "admin" };
-
-// SERIALIZATION: অবজেক্ট থেকে JSON String এ রূপান্তর
-const jsonString = JSON.stringify(userObject);
-
-console.log(jsonString);
-// আউটপুট (এটি এখন একটি প্লেন স্ট্রিং): '{"id":101,"name":"Rahim","role":"admin"}'
 ```
 
 ### `JSON.stringify()` কেন করি?
