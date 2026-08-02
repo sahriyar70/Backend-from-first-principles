@@ -67,8 +67,8 @@ REST API কমিউনিকেশনের মূল ভিত্তি হ�
     "email": "john@example.com"
   }
 }
-
-####Serialization
+---
+#### Serialization
 // একটি সাধারণ JavaScript Object (ইন-মেমোরি ডেটা)
 const userObject = {
   id: 101,
@@ -89,7 +89,7 @@ console.log(jsonString);
 অবজেক্ট মেমোরিতে থাকে: জাভাস্ক্রিপ্ট অবজেক্ট মেমোরির নির্দিষ্ট একটি জায়গায় রেফারেন্স হিসেবে থাকে। নেটওয়ার্ক দিয়ে সরাসরি এই মেমোরি অবজেক্ট পাঠানো যায় না, নেটওয়ার্ক শুধু Plain Text বা Bytes বোঝে।
 
 টেক্সটে রূপান্তর করতে: JSON.stringify() অবজেক্টকে একটি সাধারণ Text String-এ রূপান্তর করে ফেলে, যা সহজেই ইন্টারনেট দিয়ে পাঠানো যায়।
-
+---
 #### Deserialization
 // নেটওয়ার্ক থেকে আসা JSON String (যা টেক্সট আকারে এসেছে)
 const incomingJsonString = '{"id":101,"name":"Rahim","role":"admin"}';
@@ -99,7 +99,7 @@ const parsedUserObject = JSON.parse(incomingJsonString);
 
 console.log(parsedUserObject.name); 
 // আউটপুট: Rahim (এখন এটি অবজেক্ট হওয়ায় এর ভেতর থেকে ডট দিয়ে প্রপার্টি পড়া যাচ্ছে)
-
+---
 #### JSON.parse() কেন করি?
 যখন নেটওয়ার্ক থেকে আসা কোনো JSON Text String আপনার সার্ভারে বা কোডে আসে এবং আপনি সেটির ভেতরের ডাটা নিয়ে কাজ করতে চান, তখন JSON.parse() ব্যবহার করতে হয়।
 
