@@ -1,4 +1,4 @@
-# 🛠️ Validations and Transformations for Backend Engineers
+#  Validations and Transformations for Backend Engineers
 
 
 
@@ -8,7 +8,7 @@
 
 ---
 
-## 📌 Table of Contents
+##  Table of Contents
 1. [Overview](#1-overview)
 2. [Backend Architecture & Data Flow](#2-backend-architecture--data-flow)
 3. [The Core Role of Validations & Transformations](#3-the-core-role-of-validations--transformations)
@@ -135,6 +135,6 @@
 
 ## 8. Summary & Key Takeaways for Engineers
 
-*  **Strict Rules:** এপিআই ডিজাইনের সময় ব্যাকএন্ড ভ্যালিডেশন পাইপলাইন যত সম্ভব কড়া (Strict) রাখুন।
-*  **Single Pipeline:** ভ্যালিডেশন এবং ট্রান্সফরমেশনকে আলাদা আলাদা জায়গায় না রেখে একটি সিঙ্গেল কাস্টম মিডলওয়্যার বা পাইপলাইনে (যেমন: Zod, Joi, Yup, class-validator) নিয়ে আসুন।
-*  **Clear Error Messages:** ভ্যালিডেশন ফেল করলে ক্লায়েন্টকে স্পষ্ট করে জানান কোন ফিল্ডে কী ভুল হয়েছে, যেন ডেভেলপারের ডিবাগিং সহজ হয়।
+*  **Strict Rules:** এপিআই ডিজাইনের সময় ব্যাকএন্ড ভ্যালিডেশন পাইপলাইন যত সম্ভব কড়া (Strict) রাখতেহবে।
+*  **Single Pipeline:** ভ্যালিডেশন এবং ট্রান্সফরমেশনকে আলাদা আলাদা জায়গায় না রেখে একটি সিঙ্গেল কাস্টম মিডলওয়্যার বা পাইপলাইনে (যেমন: Zod, Joi, Yup, class-validator) নিয়ে আস্তেহবে।
+*  **Clear Error Messages:** ভ্যালিডেশন ফেল করলে ক্লায়েন্টকে স্পষ্ট করে জানাতেহবে কোন ফিল্ডে কী ভুল হয়েছে, যেন ডেভেলপারের ডিবাগিং সহজ হয়।
