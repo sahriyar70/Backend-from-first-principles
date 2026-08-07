@@ -63,7 +63,7 @@ REST হলো এমন একটি Architectural Style যা **Resource** �
 
 ---
 
-## 🚦API Development Workflow (ওয়ার্কফ্লো)
+## API Development Workflow (ওয়ার্কফ্লো)
 
 1. **Design First:** কোডিং শুরুর আগে **Swagger/OpenAPI**, **Postman** বা **Insomnia** দিয়ে API স্কেচ করা উচিত[02:02:27]।
 2. **Review & Iterate:** Client/Consumer-এর দৃষ্টিকোণ থেকে API-এর সাবলীলতা যাচাই করা উচিত [02:02:34]।
