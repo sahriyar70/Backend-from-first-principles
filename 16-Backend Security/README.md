@@ -1,6 +1,9 @@
 #  Backend Security Notes (ব্যাকএন্ড সিকিউরিটি গাইড)
 
 **Sriniously** চ্যানেলের **"20. Backend Security: Everything You Need to Know"** ভিডিওর ওপর ভিত্তি করে তৈরি পূর্ণাঙ্গ নোট।
+##  মূল ভিডিও
+- **ভিডিও:** [20. Backend Security: Everything You Need to Know](http://www.youtube.com/watch?v=xB1C1xZZW4k)
+- **চ্যানেল:** Sriniously
 
 ---
 
@@ -25,31 +28,6 @@
   * সঠিক উপায়ে ORM (যেমন: Prisma, TypeORM, Drizzle) ব্যবহার করা।
   * স্ট্রিং কনক্যাটেনেশন (String Concatenation) করে সরাসরি SQL কুয়েরি তৈরি না করা ।
 
-  #  SQL Injection (SQLi) Example & Prevention
-
-SQL Injection হলো একটি সিকিউরিটি Vulnerability, যেখানে আক্রমণকারী কোনো ইনপুট ফিল্ডের মাধ্যমে ক্ষতিকারক SQL কোড ব্যাকএন্ডে পাঠিয়ে ডাটাবেজের ওপর অনাকাঙ্ক্ষিত কুয়েরি চালায়।
-
----
-
-##  ১. ঝুঁকিপূর্ণ কোড (Vulnerable Code Example)
-
-মনে করি, ব্যবহারকারীর লগইনের জন্য ব্যাকএন্ডে নিচের মতো স্ট্রিং কনক্যাটেনেশন (String Concatenation) করে SQL কুয়েরি লেখা হয়েছে:
-
-```sql
--- ব্যাকএন্ডে তৈরি হওয়া কুয়েরি
-SELECT * FROM users WHERE username = 'USER_INPUT' AND password = 'USER_INPUT';
-
-SELECT * FROM users WHERE username = 'admin' --' AND password = '...';
-
-SELECT * FROM users WHERE username = '' OR '1'='1' AND password = '...';
-
-// বিপজ্জনক! স্ট্রিং টেমপ্লেট দিয়ে ইনপুট বসানো হয়েছে
-const query = `SELECT * FROM users WHERE username = '${req.body.username}' AND password = '${req.body.password}'`;
-db.query(query); 
-
-// নিরাপদ! ডাটাবেজ ইনপুটকে কেবল "ডাটা" হিসেবে দেখবে, কোড হিসেবে নয়
-const query = 'SELECT * FROM users WHERE username = $1 AND password = $2';
-db.query(query, [req.body.username, req.body.password]);
 
 ---
 
@@ -118,6 +96,30 @@ db.query(query, [req.body.username, req.body.password]);
 
 ---
 
-##  মূল ভিডিও
-- **ভিডিও:** [20. Backend Security: Everything You Need to Know](http://www.youtube.com/watch?v=xB1C1xZZW4k)
-- **চ্যানেল:** Sriniously
+
+
+ #  SQL Injection (SQLi) Example & Prevention
+
+SQL Injection হলো একটি সিকিউরিটি Vulnerability, যেখানে আক্রমণকারী কোনো ইনপুট ফিল্ডের মাধ্যমে ক্ষতিকারক SQL কোড ব্যাকএন্ডে পাঠিয়ে ডাটাবেজের ওপর অনাকাঙ্ক্ষিত কুয়েরি চালায়।
+
+---
+
+##  ১. ঝুঁকিপূর্ণ কোড (Vulnerable Code Example)
+
+মনে করি, ব্যবহারকারীর লগইনের জন্য ব্যাকএন্ডে নিচের মতো স্ট্রিং কনক্যাটেনেশন (String Concatenation) করে SQL কুয়েরি লেখা হয়েছে:
+
+```sql
+-- ব্যাকএন্ডে তৈরি হওয়া কুয়েরি
+SELECT * FROM users WHERE username = 'USER_INPUT' AND password = 'USER_INPUT';
+
+SELECT * FROM users WHERE username = 'admin' --' AND password = '...';
+
+SELECT * FROM users WHERE username = '' OR '1'='1' AND password = '...';
+
+// বিপজ্জনক! স্ট্রিং টেমপ্লেট দিয়ে ইনপুট বসানো হয়েছে
+const query = `SELECT * FROM users WHERE username = '${req.body.username}' AND password = '${req.body.password}'`;
+db.query(query); 
+
+// নিরাপদ! ডাটাবেজ ইনপুটকে কেবল "ডাটা" হিসেবে দেখবে, কোড হিসেবে নয়
+const query = 'SELECT * FROM users WHERE username = $1 AND password = $2';
+db.query(query, [req.body.username, req.body.password]);
